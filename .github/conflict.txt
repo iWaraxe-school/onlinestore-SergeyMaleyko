@@ -1,9 +1,9 @@
-Checking conflicts.
-
-Testing...
-
+New line1
+Add line2
 <<<<<<< HEAD
-Test2 line2
+Conflict line modified by GitBash.
 =======
-Test2 line3
->>>>>>> f0d738e4f1a5407428c5654c9a97fb2d95abac04
+Conflict line modified by GitHub.
+>>>>>>> 5a2ad17c49c172905fe6f46d52e4769f24a3c116
+
+The end of file.
