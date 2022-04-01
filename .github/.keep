@@ -1,9 +1,25 @@
+Install Git: Git-2.35.1.2-64-bit
+
+Test Git commands in cmd and git-cmd.
+
+Test File commands
+
 New line1
 Add line2
+
+Create a new branch named the first_branch.
+
+Test Branch commands
+
+Use GitBash
 
 Conflict line modified by GitBash.
 Conflict line modified by GitHub.
 
-Rename store from first_branch to OnlineStore.
+Rename the branch from first_branch to OnlineStore.
 
-Send a pull request.
+Look at GitGui, Gitk.
+
+Compare & pull request
+
+Create a pull request from my branch to master branch.
