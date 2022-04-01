@@ -1,9 +1,0 @@
-Checking conflicts.
-
-Testing...
-
-<<<<<<< HEAD
-Test2 line2
-=======
-Test2 line3
->>>>>>> f0d738e4f1a5407428c5654c9a97fb2d95abac04
