@@ -1,3 +1,3 @@
 public class Store {
-    Domain domain;
+    public Store() {}
 }
