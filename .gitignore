@@ -1,5 +1,3 @@
 # Project exclude paths
-/consoleApp/target/
-/domain/target/
-/store/target/
-/.idea/
+target/
+.idea/
