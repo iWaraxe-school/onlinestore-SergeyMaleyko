@@ -1,53 +1,35 @@
 package by.issoft.domain;
 
-import com.google.common.base.Preconditions;
-import org.jetbrains.annotations.NotNull;
-
 public class Product {
 
-    private String name;
-    private double rate;
-    private double price;
+    private final String name;
+    private final Double rate;
+    private final Double price;
 
-    public Product(String name, double rate, double price) {
+    public Product(String name, Double rate, Double price) {
         this.name = name;
         this.rate = rate;
         this.price = price;
-    }
-
-    public Product() {
-
-    }
-
-    public static void printProductInfo(@NotNull Product product){
-        System.out.println(
-                product.getName() + " " +
-                product.getRate() + " " +
-                product.getPrice());
     }
 
     public String getName() {
-        Preconditions.checkArgument(name.equals(""), "Blank name.");
-        return name;
+         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public double getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
-        this.rate = rate;
+    @Override
+    public String toString() {
+        return String.format("Product name: %s, price: %.2f, rate: %.2f; %n", name, price, rate);
+    }
+
+    public static void printProductInfo(Product product){
+        System.out.println(product);
     }
 }
