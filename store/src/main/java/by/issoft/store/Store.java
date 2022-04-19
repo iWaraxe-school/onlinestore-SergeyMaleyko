@@ -2,53 +2,48 @@ package by.issoft.store;
 
 import by.issoft.domain.Category;
 import by.issoft.domain.Product;
-import utils.RandomStorePopulator;
+import by.issoft.domain.categories.CategoryNames;
+import populator.RandomStorePopulator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.*;
 
 public class Store {
 
-    private Map<Category, Integer> categoryProductMap = new HashMap<>();
+    public List<Category> categoryList = new ArrayList<>();
+    protected List<Product> productList = new ArrayList<>();
 
-    private List<Category> categoryList = new ArrayList<Category>();
+    private static Store storeInstance;
 
-    public Store() {    }
+    private Store() {
+    }
 
-    public void fillStore(Map<Category, Integer> categoryProductMap) {
-
-        RandomStorePopulator populateRandomStore = new RandomStorePopulator();
-
-        for (Map.Entry<Category, Integer> entry : categoryProductMap.entrySet()) {
-            for (int i = 0; i < entry.getValue(); i++) {
-                Product product = new Product(
-                        populateRandomStore.getProductName(entry.getKey().getName()),
-                        populateRandomStore.getPrice(),
-                        populateRandomStore.getRate());
-                entry.getKey().addProduct(product);
+    public static Store getInstance() {
+        if (storeInstance != null) {
+            return storeInstance;
+        }
+        synchronized (Store.class) {
+            if (storeInstance == null) {
+                storeInstance = new Store();
             }
+            return storeInstance;
         }
     }
 
     public List<Category> getCategoryList() {
         return categoryList;
     }
-
-    public void setCategoryList(ArrayList<Category> categoryList) {
-        this.categoryList = categoryList;
+    /*
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setCategoryItem(Category category) {
-        this.categoryList.add(category);
-    }
+    public List<Product> getAllStoreItems() throws SQLException {
 
-    public void printAllCatAndProd() {
-        System.out.println("The list of the categories and products in the store:");
+        StoreHelper storeHelper = new StoreHelper();
+        storeHelper.fillStore("FAKER");
 
-        for (Map.Entry<Category, Integer> entry : categoryProductMap.entrySet()) {
-            entry.getKey().printAllProducts();
-        }
+        return getProductList();
     }
+     */
 }

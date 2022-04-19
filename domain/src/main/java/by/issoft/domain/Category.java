@@ -1,21 +1,23 @@
 package by.issoft.domain;
 
+import by.issoft.domain.categories.CategoryNames;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
 
-    private final String name;
+    private final CategoryNames name;
 
-    List<Product> productList;
+    private List<Product> productList;
 
-    public Category(String name) {
+    public Category(CategoryNames name) {
         this.name = name;
         productList = new ArrayList<Product>();
     }
 
     public String getName() {
-        return name;
+        return name.toString();
     }
 
     @Override
@@ -28,11 +30,7 @@ public class Category {
         return info.toString();
     }
 
-    public void addProduct(Product product) {
+    public void setProductItem(Product product) {
         this.productList.add(product);
-    }
-
-    public void printAllProducts() {
-        System.out.println(productList.toString());
     }
 }

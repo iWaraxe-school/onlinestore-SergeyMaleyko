@@ -8,8 +8,8 @@ public class Product {
 
     public Product(String name, Double rate, Double price) {
         this.name = name;
-        this.rate = rate;
         this.price = price;
+        this.rate = rate;
     }
 
     public String getName() {
@@ -29,7 +29,7 @@ public class Product {
         return String.format("Product name: %s, price: %.2f, rate: %.2f; %n", name, price, rate);
     }
 
-    public static void printProductInfo(Product product){
-        System.out.println(product);
-    }
+    //public static void printProductInfo(Product product){
+    //    System.out.println(product);
+    //}
 }
