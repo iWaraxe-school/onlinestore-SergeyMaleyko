@@ -1,12 +1,17 @@
 package populator;
 
-import by.issoft.store.Store;
+import by.issoft.domain.Category;
+import by.issoft.domain.Product;
+
+import java.util.List;
 
 public interface Populator {
 
-    RandomStorePopulator populator = new RandomStorePopulator();
+    List<Category> getCategoryList();
 
-    Store store = Store.getInstance();
+    List<Product> getProductList();
 
-    void fillStore();
+    //RandomStorePopulator populator = new RandomStorePopulator();
+    //Store store = Store.getInstance();
+    //void fillStore();
 }

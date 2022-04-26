@@ -1,7 +1,7 @@
 package by.issoft.domain.categories;
 
 public enum CategoryNames {
-    Bike,
-    Phone,
-    Milk
+    BIKE,
+    PHONE,
+    MILK
 }

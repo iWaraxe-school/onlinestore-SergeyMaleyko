@@ -20,7 +20,9 @@ public class Category {
     }
 
     public String getName() {
-        return name.toString();
+        String categoryName = name.toString().toLowerCase();
+        if(categoryName.isEmpty()) return "";
+        return categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
     }
 
     public int getProductSize() {
@@ -33,6 +35,7 @@ public class Category {
 
     @Override
     public String toString() {
+        String name = getName();
         StringBuilder info = new StringBuilder();
         info.append(String.format("%nCategory name: %s. The list of products: %n", name));
         for (Product product : productList) {
