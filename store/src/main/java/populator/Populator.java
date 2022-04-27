@@ -11,7 +11,6 @@ public interface Populator {
 
     List<Product> getProductList();
 
-    //RandomStorePopulator populator = new RandomStorePopulator();
-    //Store store = Store.getInstance();
-    //void fillStore();
+    void fillStore();
+
 }
