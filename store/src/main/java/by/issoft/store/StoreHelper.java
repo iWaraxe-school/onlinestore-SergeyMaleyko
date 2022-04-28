@@ -104,4 +104,9 @@ public class StoreHelper {
             System.out.println(category);
         }
     }
+    public void printProductSorted() {
+        for (Category category : store.categoryList) {
+            category.sort();
+        }
+    }
 }

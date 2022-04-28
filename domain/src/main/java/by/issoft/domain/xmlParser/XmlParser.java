@@ -20,7 +20,7 @@ public class XmlParser {
 
         HashMap<String, String> sortMap = new LinkedHashMap<>();
 
-        File configFile = new File("onlineStore/domain/src/main/resources/config.xml");
+        File configFile = new File("domain/src/main/java/resources/config.xml");
 
         // Instantiate the Factory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -52,4 +52,3 @@ public class XmlParser {
         return sortMap;
     }
 }
-
