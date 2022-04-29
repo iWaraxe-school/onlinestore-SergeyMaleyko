@@ -15,7 +15,7 @@ public class ProductComparator implements Comparator<Product> {
     }
 
     private static Comparator<Product> getComparator(String sortKey) {
-        if(sortKey.equals("name")) {
+        if (sortKey.equals("name")) {
             return Comparator.comparing(Product::getName);
         } else if (sortKey.equals("price")) {
             return Comparator.comparing(Product::getPrice);
@@ -26,25 +26,45 @@ public class ProductComparator implements Comparator<Product> {
         }
     }
 
-    public static List<Product> sortProductList(List<Product> productList) {
+    public static List<Product> sortProductList(List<Product> productList, String sortKey) {
 
         List<Product> plist = new ArrayList(productList);
         Map<String, String> sortingMap = XmlParser.getProductSorting();
+        if (sortKey.isBlank()) { sortKey = "price"; } // by default
 
-        //parser returns something like: sortingMap.put("price","desc");
+        // parser returns something like
+        if (sortingMap.isEmpty()) {
+            sortingMap.put("name", "asc");
+            sortingMap.put("price", "asc");
+            sortingMap.put("rate", "desc");
+        }
 
         for (Map.Entry<String, String> me : sortingMap.entrySet()) {
-            if (me.getValue().equals(TypesOfSorting.ASC.name().toLowerCase())) {
-                plist.sort(getComparator(me.getKey()));
-            } else if (me.getValue().equals(TypesOfSorting.DESC.name().toLowerCase())) {
-                plist.sort(getComparator(me.getKey()).reversed());
+            if (me.getKey().equals(sortKey)) {
+                if (me.getValue().equals(TypesOfSorting.ASC.name().toLowerCase())) {
+                    plist.sort(getComparator(me.getKey()));
+                } else if (me.getValue().equals(TypesOfSorting.DESC.name().toLowerCase())) {
+                    plist.sort(getComparator(me.getKey()).reversed());
+                }
             }
         }
         return plist;
     }
 
-    public static List<Product> sortProductByPrice(List<Product> productList) {
-        productList.sort(getComparator("price").reversed());
+    public static List<Product> sortProductReversed(List<Product> productList, String sortKey) {
+        switch (sortKey) {
+            case  ("name"):
+                productList.sort(getComparator("name").reversed());
+                break;
+            case ("price"):
+                productList.sort(getComparator("price").reversed());
+                break;
+            case ("rate"):
+                productList.sort(getComparator("rate").reversed());
+                break;
+            default:
+                break;
+        }
         return productList;
     }
 }
