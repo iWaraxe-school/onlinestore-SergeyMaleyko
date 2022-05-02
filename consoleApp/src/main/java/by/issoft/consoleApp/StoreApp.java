@@ -8,11 +8,9 @@ public class StoreApp {
     public static void main(String[] args) {
 
         System.out.println("This is storeApp!"+"\r\n");
-
-        // ~ Check info
         Store store = Store.getInstance();
-        StoreHelper storeHelper = new StoreHelper(store);
 
+        StoreHelper storeHelper = new StoreHelper(store);
         storeHelper.fillStore("FAKER");
         //storeHelper.printAllCatAndProd();
         storeHelper.printStoreSorted();

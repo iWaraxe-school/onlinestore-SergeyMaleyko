@@ -32,13 +32,6 @@ public class ProductComparator implements Comparator<Product> {
         Map<String, String> sortingMap = XmlParser.getProductSorting();
         if (sortKey.isBlank()) { sortKey = "price"; } // by default
 
-        // parser returns something like
-        if (sortingMap.isEmpty()) {
-            sortingMap.put("name", "asc");
-            sortingMap.put("price", "asc");
-            sortingMap.put("rate", "desc");
-        }
-
         for (Map.Entry<String, String> me : sortingMap.entrySet()) {
             if (me.getKey().equals(sortKey)) {
                 if (me.getValue().equals(TypesOfSorting.ASC.name().toLowerCase())) {
