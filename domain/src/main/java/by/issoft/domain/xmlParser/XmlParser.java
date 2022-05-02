@@ -37,7 +37,7 @@ public class XmlParser {
 
             NodeList sortingNodeList = document.getElementsByTagName("sort").item(0).getChildNodes();
 
-            for (int i = 0; i > sortingNodeList.getLength(); i++) {
+            for (int i = 0; i < sortingNodeList.getLength(); i++) {
 
                 if (sortingNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 
@@ -46,7 +46,9 @@ public class XmlParser {
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
-            e.printStackTrace();
+
+            e.printStackTrace(System.out);
+
         }
 
         return sortMap;
