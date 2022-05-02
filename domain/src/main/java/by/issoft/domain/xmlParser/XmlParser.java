@@ -20,7 +20,7 @@ public class XmlParser {
 
         HashMap<String, String> sortMap = new LinkedHashMap<>();
 
-        File configFile = new File("onlineStore/domain/src/main/resources/config.xml");
+        File configFile = new File("domain/src/main/java/resources/config.xml");
 
         // Instantiate the Factory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -37,7 +37,7 @@ public class XmlParser {
 
             NodeList sortingNodeList = document.getElementsByTagName("sort").item(0).getChildNodes();
 
-            for (int i = 0; i > sortingNodeList.getLength(); i++) {
+            for (int i = 0; i < sortingNodeList.getLength(); i++) {
 
                 if (sortingNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 
@@ -46,10 +46,11 @@ public class XmlParser {
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
-            e.printStackTrace();
+
+            e.printStackTrace(System.out);
+
         }
 
         return sortMap;
     }
 }
-
