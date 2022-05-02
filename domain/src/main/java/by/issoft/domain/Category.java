@@ -22,7 +22,6 @@ public class Category {
 
     public String getName() {
         String categoryName = name.toString().toLowerCase();
-        if(categoryName.isEmpty()) return "";
         return categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
     }
 
@@ -34,13 +33,18 @@ public class Category {
         this.productList.add(product);
     }
 
+    public List<Product> getProductList() {
+        return ProductComparator.sortProductList(productList, "price");
+    }
+
     public void sort() {
         StringBuilder info = new StringBuilder();
-        info.append(String.format("Sorted list of %s category:%n", getName()));
-        List<Product> plist = ProductComparator.sortProductList(productList);
+        info.append(String.format("%s category:%n", getName()));
+        List<Product> plist = ProductComparator.sortProductList(productList, "");
         for (Product product : plist) {
             info.append(product);
         }
+        info.append(String.format("Number of products: %s%n", getProductSize()));
         System.out.println(info);
     }
 
@@ -56,3 +60,4 @@ public class Category {
         return info.toString();
     }
 }
+
