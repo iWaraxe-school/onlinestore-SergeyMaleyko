@@ -1,6 +1,7 @@
 package by.issoft.domain;
 
 import by.issoft.domain.categories.CategoryNames;
+import by.issoft.domain.comparators.ProductComparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ public class Category {
 
     public String getName() {
         String categoryName = name.toString().toLowerCase();
-        if(categoryName.isEmpty()) return "";
         return categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
     }
 
@@ -33,11 +33,25 @@ public class Category {
         this.productList.add(product);
     }
 
+    public List<Product> getProductList() {
+        return ProductComparator.sortProductList(productList, "price");
+    }
+
+    public void sort() {
+        StringBuilder info = new StringBuilder();
+        info.append(String.format("%s category:%n", getName()));
+        List<Product> plist = ProductComparator.sortProductList(productList, "");
+        for (Product product : plist) {
+            info.append(product);
+        }
+        info.append(String.format("Number of products: %s%n", getProductSize()));
+        System.out.println(info);
+    }
+
     @Override
     public String toString() {
-        String name = getName();
         StringBuilder info = new StringBuilder();
-        info.append(String.format("%nCategory name: %s. The list of products: %n", name));
+        info.append(String.format("%nCategory name: %s. The list of products: %n", getName()));
         for (Product product : productList) {
             info.append(product.toString());
         }
@@ -46,3 +60,4 @@ public class Category {
         return info.toString();
     }
 }
+

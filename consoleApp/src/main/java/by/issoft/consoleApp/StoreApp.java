@@ -15,5 +15,7 @@ public class StoreApp {
 
         storeHelper.fillStore("FAKER");
         storeHelper.printAllCatAndProd();
+        //storeHelper.printProductSorted();
+
    }
 }
