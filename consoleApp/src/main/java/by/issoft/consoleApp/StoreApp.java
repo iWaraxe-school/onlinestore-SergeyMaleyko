@@ -1,19 +1,14 @@
 package by.issoft.consoleApp;
 
 import by.issoft.store.Store;
-import by.issoft.store.StoreHelper;
+import by.issoft.store.StoreInteraction;
 
 public class StoreApp {
 
     public static void main(String[] args) {
 
-        System.out.println("This is storeApp!"+"\r\n");
-
-        // ~ Check info
         Store store = Store.getInstance();
-        StoreHelper storeHelper = new StoreHelper(store);
+        StoreInteraction.execStoreInteraction(store);
 
-        storeHelper.fillStore("FAKER");
-        storeHelper.printAllCatAndProd();
    }
 }

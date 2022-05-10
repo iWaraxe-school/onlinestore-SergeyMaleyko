@@ -50,7 +50,7 @@ public class StoreHelper {
             Category c = new Category(category);
 
             Random random = new Random();
-            int r = random.nextInt(9) + 1;
+            int r = random.nextInt(10) + 1;
 
             for (int i = 0; i < r; i++) {
                 Product product = new Product(
@@ -104,4 +104,11 @@ public class StoreHelper {
             System.out.println(category);
         }
     }
+    public void printStoreSorted() {
+        store.sort();
+    }
+    public void printStoreTopProducts() {
+        store.top();
+    }
 }
+
