@@ -11,8 +11,9 @@ public class Store {
 
     public List<Category> categoryList = new ArrayList<>();
     protected List<Product> productList = new ArrayList<>();
-    private static Store storeInstance;
+    private volatile static Store storeInstance;
 
+    // Singleton pattern
     private Store() {
     }
 
@@ -41,7 +42,7 @@ public class Store {
     public void top() {
         List<Product> productList = new ArrayList<>();
         for (Category category : categoryList) {
-            productList.addAll(category.getProductList());
+            productList.addAll(category.getSortProductByPrice());
         }
         ProductComparator.sortProductReversed(productList, "price");
         System.out.println("Top 5 products by price:");

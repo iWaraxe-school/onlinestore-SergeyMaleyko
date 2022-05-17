@@ -2,7 +2,7 @@ package by.issoft.store;
 
 import by.issoft.domain.Category;
 import by.issoft.domain.Product;
-import by.issoft.domain.categories.CategoryNames;
+import by.issoft.domain.categories.CategoryType;
 import org.reflections.Reflections;
 import populator.RandomStorePopulator;
 
@@ -12,13 +12,6 @@ public class StoreHelper {
 
     Store store = Store.getInstance();
     private static int count = 1;
-
-    public StoreHelper() {
-    }
-
-    public Store getStore() {
-        return store;
-    }
 
     public StoreHelper(Store store) {
         this.store = store;
@@ -44,21 +37,26 @@ public class StoreHelper {
     private void fillCategoryList(List<Category> categoryList) {
 
         RandomStorePopulator populator = new RandomStorePopulator();
+        int id = 1;
+        int ic = 0;
 
-        for (CategoryNames category : CategoryNames.values()) {
+        for (CategoryType category : CategoryType.values()) {
 
             Category c = new Category(category);
 
             Random random = new Random();
             int r = random.nextInt(10) + 1;
+            ic++;
 
             for (int i = 0; i < r; i++) {
-                Product product = new Product(
-                        populator.getProductName(category),
-                        populator.getPrice(),
-                        populator.getRate());
-
-                c.setProductItem(product);
+                Product product = Product.newBuilder()
+                        .setId(id++)
+                        .setName(populator.getProductName(category))
+                        .setPrice(populator.getPrice())
+                        .setRate(populator.getRate())
+                        .setCategoryId(ic)
+                        .build();
+                c.setItemProduct(product);
             }
             categoryList.add(c);
         }
@@ -72,7 +70,7 @@ public class StoreHelper {
 
         Map<Category, Integer> categoryMap = new HashMap<>();
         for (Category category : categoryList) {
-            categoryMap.put(category, category.getProductSize());
+            categoryMap.put(category, category.getSizeProduct());
         }
         return categoryMap;
     }
@@ -104,11 +102,4 @@ public class StoreHelper {
             System.out.println(category);
         }
     }
-    public void printStoreSorted() {
-        store.sort();
-    }
-    public void printStoreTopProducts() {
-        store.top();
-    }
 }
-

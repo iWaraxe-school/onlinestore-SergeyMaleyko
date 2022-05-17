@@ -19,7 +19,8 @@ public class StoreInteraction {
 
             while (console) {
 
-                System.out.println("The store interacts with using next commands: info, sort, top, quit/q:");
+                System.out.println("The store interacts with using next commands: sort, top, info, quit/q...");
+
                 String command = bufferedReader.readLine();
 
                 switch (command) {

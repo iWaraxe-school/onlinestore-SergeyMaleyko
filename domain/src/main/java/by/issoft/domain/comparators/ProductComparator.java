@@ -44,20 +44,19 @@ public class ProductComparator implements Comparator<Product> {
         return plist;
     }
 
-    public static List<Product> sortProductReversed(List<Product> productList, String sortKey) {
+    public static void sortProductReversed(List<Product> productList, String sortKey) {
         switch (sortKey) {
-            case  ("name"):
+            case "name":
                 productList.sort(getComparator("name").reversed());
                 break;
-            case ("price"):
+            case "price":
                 productList.sort(getComparator("price").reversed());
                 break;
-            case ("rate"):
+            case "rate":
                 productList.sort(getComparator("rate").reversed());
                 break;
             default:
                 break;
         }
-        return productList;
     }
 }
