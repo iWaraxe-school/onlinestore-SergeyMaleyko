@@ -1,6 +1,6 @@
 package populator;
 
-import by.issoft.domain.categories.CategoryNames;
+import by.issoft.domain.categories.CategoryType;
 import com.github.javafaker.Faker;
 
 public class RandomStorePopulator {
@@ -10,7 +10,7 @@ public class RandomStorePopulator {
     public RandomStorePopulator() {
     }
 
-    public String getProductName(CategoryNames categoryName) {
+    public String getProductName(CategoryType categoryName) {
         switch (categoryName) {
             case BIKE:
                 return faker.company().name();
@@ -23,8 +23,8 @@ public class RandomStorePopulator {
         }
     }
 
-    public Double getPrice() { return faker.number().randomDouble(1,1,100);}
+    public Double getPrice() { return faker.number().randomDouble(1,1,1_000);}
 
-    public Double getRate() { return faker.number().randomDouble(1,1,1_000);}
+    public Double getRate() { return faker.number().randomDouble(1,1,100);}
 
 }
