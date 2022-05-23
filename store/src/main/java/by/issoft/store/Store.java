@@ -40,7 +40,6 @@ public class Store {
     }
 
     public void top() {
-        List<Product> productList = new ArrayList<>();
         for (Category category : categoryList) {
             productList.addAll(category.getSortProductByPrice());
         }

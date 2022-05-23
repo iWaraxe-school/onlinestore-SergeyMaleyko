@@ -17,7 +17,7 @@ public class StoreHelper {
         this.store = store;
     }
 
-     public void fillStore(String mode) {
+    public void fillStore(String mode) {
         if (mode.equals("FAKER")) {
             Map<Category, Integer> categoryMap;
             if (count == 0) {
@@ -34,28 +34,41 @@ public class StoreHelper {
         }
     }
 
-    private void fillCategoryList(List<Category> categoryList) {
-
+    private Product populateProduct(CategoryType category, Integer pid) {
         RandomStorePopulator populator = new RandomStorePopulator();
-        int id = 1;
-        int ic = 0;
+        Product product = Product.newBuilder()
+            .setId(pid++)
+            .setName(populator.getProductName(category))
+            .setPrice(populator.getPrice())
+            .setRate(populator.getRate())
+            .setCategoryId(category.getIndex())
+            .build();
+        return product;
+    }
 
+    private List<Product> populateProductList() {
+        int pid = 1;
+        List<Product> productList = new ArrayList<>();
         for (CategoryType category : CategoryType.values()) {
-
             Category c = new Category(category);
-
             Random random = new Random();
             int r = random.nextInt(10) + 1;
-            ic++;
-
             for (int i = 0; i < r; i++) {
-                Product product = Product.newBuilder()
-                        .setId(id++)
-                        .setName(populator.getProductName(category))
-                        .setPrice(populator.getPrice())
-                        .setRate(populator.getRate())
-                        .setCategoryId(ic)
-                        .build();
+                Product product = populateProduct(category, pid++);
+                productList.add(product);
+            }
+        }
+        return productList;
+    }
+
+    private void fillCategoryList(List<Category> categoryList) {
+        int pid = 1;
+        for (CategoryType category : CategoryType.values()) {
+            Category c = new Category(category);
+            Random random = new Random();
+            int r = random.nextInt(30) + 1;
+            for (int i = 0; i < r; i++) {
+                Product product = populateProduct(category, pid++);
                 c.setItemProduct(product);
             }
             categoryList.add(c);
@@ -67,7 +80,6 @@ public class StoreHelper {
         if (categoryList.isEmpty()) {
             fillCategoryList(categoryList);
         }
-
         Map<Category, Integer> categoryMap = new HashMap<>();
         for (Category category : categoryList) {
             categoryMap.put(category, category.getSizeProduct());
@@ -78,12 +90,9 @@ public class StoreHelper {
     // Refection
     public static Map<Category, Integer> reflectCategory() {
         Map<Category, Integer> categoryMap = new HashMap<>();
-
         Reflections reflections = new Reflections("by.issoft.domain.categories");
-
         Set<Class<? extends Category>> subTypesOfCategory =
                 reflections.getSubTypesOf(Category.class);
-
         for (Class<? extends Category> type : subTypesOfCategory) {
             Random random = new Random();
             try {
@@ -97,9 +106,22 @@ public class StoreHelper {
 
     public void printAllCatAndProd() {
         System.out.println("The list of the categories and products in the store:");
-
         for (Category category : store.categoryList) {
             System.out.println(category);
         }
+    }
+
+    public void printRandomProduct() {
+        System.out.println("Random Product:");
+        Random random = new Random();
+        int pid = random.nextInt(30) + 1;
+        Product p = populateProduct(CategoryType.BIKE, pid);
+        String s = "Product ID: " + p.getId() + ", " +
+                "Category ID: " + p.getCategoryId()  + ", " +
+                p.getProduct();
+        System.out.println(s);
+    }
+    public void printProductList(){
+        System.out.println(populateProductList());
     }
 }

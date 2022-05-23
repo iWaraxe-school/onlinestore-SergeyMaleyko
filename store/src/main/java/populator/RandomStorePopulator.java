@@ -19,7 +19,7 @@ public class RandomStorePopulator {
             case MILK:
                 return faker.food().ingredient();
             default:
-                return null;
+                return faker.name().name();
         }
     }
 
