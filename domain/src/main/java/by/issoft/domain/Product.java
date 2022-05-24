@@ -113,12 +113,10 @@ public class Product {
                 discountWeek.applyDiscount(price) + ", ";}
         else if (discountChristmas.checkCondition()) { message = "Christmas Discount!!! " +
                 discountChristmas.applyDiscount(price) + ", ";}
-        return String.format("ID: %s, " +
-                        "Product name: %s, " +
-                        "price: %.2f, " + message +
-                        "rate: %.2f; " +
-                        "Category ID: %s" +
-                        "%n",
-                id, name, price, rate, categoryId);
+        return String.format("ID %s, " +
+                " Product name: %s, " +
+                "price: %.2f, " + message +
+                "rate: %.2f; " +
+                "%n", id, name, price, rate);
     }
 }

@@ -30,7 +30,7 @@ public class ProductComparator implements Comparator<Product> {
 
         List<Product> plist = new ArrayList(productList);
         Map<String, String> sortingMap = XmlParser.getProductSorting();
-        if (sortKey.isBlank()) { sortKey = "price"; } // by default
+        if (sortKey.isEmpty()) { sortKey = "price"; } // by default
 
         for (Map.Entry<String, String> me : sortingMap.entrySet()) {
             if (me.getKey().equals(sortKey)) {
@@ -40,6 +40,7 @@ public class ProductComparator implements Comparator<Product> {
                     plist.sort(getComparator(me.getKey()).reversed());
                 }
             }
+
         }
         return plist;
     }

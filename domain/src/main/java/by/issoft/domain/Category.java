@@ -18,7 +18,7 @@ public class Category {
     }
 
     public Integer getId() {
-        return id;
+        return name.getIndex();
     }
 
     public String getNameCategory() {
@@ -44,12 +44,8 @@ public class Category {
         return ProductComparator.sortProductList(productList, "price");
     }
 
-    public List<Product> getSortProductByName() {
-        return ProductComparator.sortProductList(productList, "name");
-    }
-
-    public List<Product> getSortProductByRate() {
-        return ProductComparator.sortProductList(productList, "rate");
+    public List<Product> getSortProductById() {
+        return ProductComparator.sortProductList(productList, "id");
     }
 
     public void sort() {
@@ -66,7 +62,8 @@ public class Category {
     @Override
     public String toString() {
         StringBuilder info = new StringBuilder();
-        info.append(String.format("Category name: %s.%n", getNameCategory()));
+        info.append(String.format("Category name: %s, ", getNameCategory()));
+        info.append(String.format("ID: %s.%n", getId()));
         info.append(String.format("Number of products: %s%n", getSizeProduct()));
         for (Product product : productList) {
             info.append(product.toString());
