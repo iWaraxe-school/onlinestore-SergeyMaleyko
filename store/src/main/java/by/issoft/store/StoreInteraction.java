@@ -5,6 +5,8 @@ import by.issoft.domain.Product;
 import by.issoft.domain.commands.ShoppingCart;
 import by.issoft.domain.commands.ShoppingCartOperation;
 import by.issoft.domain.commands.ShoppingCartOperationExecutor;
+import lombok.SneakyThrows;
+import populator.DbStorePopulator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,9 +16,12 @@ import java.util.List;
 
 public class StoreInteraction {
 
+    @SneakyThrows
     public static void execStoreInteraction(Store store) {
-        StoreHelper storeHelper = new StoreHelper(store);
-        storeHelper.fillStore("FAKER");
+        DbStorePopulator dbStorePopulator = new DbStorePopulator();
+        dbStorePopulator.fillStore();
+        // Use data from DB.
+        dbStorePopulator.populateStoreFromDb();
         try {
             boolean console = true;
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -26,7 +31,7 @@ public class StoreInteraction {
                 String command = bufferedReader.readLine();
                 switch (command) {
                     case "info","i":
-                        storeHelper.printAllCatAndProd();
+                        dbStorePopulator.printAllProductsByCategories();
                         break;
                     case "sort","s":
                         store.sort();
