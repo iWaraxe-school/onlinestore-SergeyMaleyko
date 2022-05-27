@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
-
     private Integer id;
+    private Integer categoryId;
     private String name;
     private Double rate;
     private Double price;
-    private Integer categoryId;
+
     // Strategy pattern
     Discounter discountWeek = new WeeklyDiscounter();
     Discounter discountChristmas = new ChristmasDiscounter();
@@ -24,14 +24,22 @@ public class Product {
 
     // Pattern Builder
     public class Builder {
-
-        private Integer id;
+        private Integer productId;
+        private Integer categoryId;
         private String name;
         private Double rate;
         private Double price;
-        private Integer categoryId;
 
         private Builder() {
+        }
+        public Builder setProductId(Integer id) {
+            this.productId = id;
+            return this;
+        }
+
+        public Builder setCategoryId(Integer categoryId) {
+            this.categoryId = categoryId;
+            return this;
         }
 
         public Builder setName(String name) {
@@ -49,23 +57,13 @@ public class Product {
             return this;
         }
 
-        public Builder setId(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder setCategoryId(Integer categoryId) {
-            this.categoryId = categoryId;
-            return this;
-        }
-
         public Product build() {
-            Product.this.id = id;
+            Product.this.id = productId;
+            Product.this.categoryId = this.categoryId;
             Product.this.name = this.name;
             //Product.this.price = this.price;
             Product.this.price = discountPrice(this.price);
             Product.this.rate = this.rate;
-            Product.this.categoryId = this.categoryId;
             return Product.this;
         }
 
@@ -73,38 +71,23 @@ public class Product {
             List<Discounter> discounterList = new ArrayList<>();
             discounterList.add(discountWeek);
             discounterList.add(discountChristmas);
-            for (Discounter discounter : discounterList) {
+            discounterList.forEach(discounter -> {
                 if (discountWeek.checkCondition()) {
                     this.price = discountWeek.applyDiscount(price);
                 } else if (discountChristmas.checkCondition()) {
                     this.price = discountChristmas.applyDiscount(price);
                 }
-            }
+            });
             return this.price;
         }
     }
 
-    public Product getProduct() {
-        return this;
-    }
-
-    public Integer getId() {
-         return id;
-    }
-
+    public Integer getProductId() { return id; }
+    public Integer getCategoryId() { return categoryId; }
     public String getName() { return name; }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public Double getRate() {
-        return rate;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
+    public Double getPrice() { return price; }
+    public Double getRate() { return rate; }
+    public Product getProduct() { return this; }
 
     @Override
     public String toString() {
@@ -116,7 +99,7 @@ public class Product {
         return String.format("ID %s, " +
                 " Product name: %s, " +
                 "price: %.2f, " + message +
-                "rate: %.2f; " +
-                "%n", id, name, price, rate);
+                "rate: %.2f" + "%n",
+                id, name, price, rate);
     }
 }

@@ -9,7 +9,6 @@ import populator.RandomStorePopulator;
 import java.util.*;
 
 public class StoreHelper {
-
     Store store = Store.getInstance();
     private static int count = 1;
 
@@ -17,31 +16,24 @@ public class StoreHelper {
         this.store = store;
     }
 
-    public void fillStore(String mode) {
+    public void fillStore(String mode) throws IllegalArgumentException {
         if (mode.equals("FAKER")) {
-            Map<Category, Integer> categoryMap;
             if (count == 0) {
-                categoryMap = reflectCategory();
+                reflectCategory();
                 count++;
-            } else {
-                categoryMap = fillCategoryMap();
             }
-        }
-        //else if (mode.equals("DB"))
-        //else if (mode.equals("HTTP"))
-        else {
-            throw new IllegalArgumentException("Illegal argument");
+            fillCategoryMap();
         }
     }
 
     private Product populateProduct(CategoryType category, Integer pid) {
         RandomStorePopulator populator = new RandomStorePopulator();
         Product product = Product.newBuilder()
-            .setId(pid++)
+            .setProductId(pid++)
+            .setCategoryId(category.getIndex())
             .setName(populator.getProductName(category))
             .setPrice(populator.getPrice())
             .setRate(populator.getRate())
-            .setCategoryId(category.getIndex())
             .build();
         return product;
     }
@@ -75,7 +67,7 @@ public class StoreHelper {
         }
     }
 
-    public Map<Category, Integer> fillCategoryMap() {
+    private Map<Category, Integer> fillCategoryMap() {
         List<Category> categoryList = store.getCategoryList();
         if (categoryList.isEmpty()) {
             fillCategoryList(categoryList);
@@ -109,19 +101,5 @@ public class StoreHelper {
         for (Category category : store.categoryList) {
             System.out.println(category);
         }
-    }
-
-    public void printRandomProduct() {
-        System.out.println("Random Product:");
-        Random random = new Random();
-        int pid = random.nextInt(30) + 1;
-        Product p = populateProduct(CategoryType.BIKE, pid);
-        String s = "Product ID: " + p.getId() + ", " +
-                "Category ID: " + p.getCategoryId()  + ", " +
-                p.getProduct();
-        System.out.println(s);
-    }
-    public void printProductList(){
-        System.out.println(populateProductList());
     }
 }
