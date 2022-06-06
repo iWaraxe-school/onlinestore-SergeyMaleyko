@@ -6,7 +6,11 @@ import java.sql.SQLException;
 
 public class DbConnection {
     private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_URL = "jdbc:h2:tcp://localhost/~/NavigatorStore";
+    private static final String DB_URL =
+        // Server
+        "jdbc:h2:tcp://localhost/~/NavigatorStore";
+        // Embedded
+        // "jdbc:h2:~/NavigatorStore";
     private static final String DB_USER = "adm";
     private static final String DB_PASSWORD = "";
 

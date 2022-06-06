@@ -7,6 +7,7 @@ import by.issoft.domain.commands.ShoppingCartOperation;
 import by.issoft.domain.commands.ShoppingCartOperationExecutor;
 import lombok.SneakyThrows;
 import populator.DbStorePopulator;
+import populator.HttpPopulator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,10 +19,20 @@ public class StoreInteraction {
 
     @SneakyThrows
     public static void execStoreInteraction(Store store) {
+        StoreHelper storeHelper = new StoreHelper(store);
         DbStorePopulator dbStorePopulator = new DbStorePopulator();
-        dbStorePopulator.fillStore();
+        HttpPopulator httpPopulator = new HttpPopulator();
+        List<Category> categoryList = new ArrayList<>();
+
+        // Use data from Faker.
+        categoryList = dbStorePopulator.populateStoreFaker();
         // Use data from DB.
-        dbStorePopulator.populateStoreFromDb();
+        dbStorePopulator.fillStore();
+        categoryList = dbStorePopulator.getAllCategories();
+        // Use data from Http Server.
+        httpPopulator.fillStore();
+        categoryList = httpPopulator.getAllCategories();
+
         try {
             boolean console = true;
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -31,7 +42,7 @@ public class StoreInteraction {
                 String command = bufferedReader.readLine();
                 switch (command) {
                     case "info","i":
-                        dbStorePopulator.printAllProductsByCategories();
+                        storeHelper.printAllProductsByCategories();
                         break;
                     case "sort","s":
                         store.sort();
@@ -40,13 +51,12 @@ public class StoreInteraction {
                         store.top();
                         break;
                     case "order","o":
-                        List<Category> categoryList = store.getCategoryList();
-                        List<Product> productList = new ArrayList<>();
-                        List<Product> orderProductList = new ArrayList<>();
+                        List<Product> allProductsList = new ArrayList<>();
+                        List<Product> orderedProductsList = new ArrayList<>();
                         for (Category category : categoryList) {
-                            productList.addAll(category.getSortProductById());
+                            allProductsList.addAll(category.getSortProductById());
                         }
-                        ShoppingCart cart = new ShoppingCart(productList, orderProductList);
+                        ShoppingCart cart = new ShoppingCart(allProductsList, orderedProductsList);
                         ShoppingCartOperation put = cart::put;
                         ShoppingCartOperation show = cart::show;
                         ShoppingCartOperation buy = cart::buy;
@@ -65,6 +75,7 @@ public class StoreInteraction {
                             String commandOrder = bufferedReaderOrder.readLine();
                             switch (commandOrder) {
                                 case "put","p":
+                                    // Add random products to Cart
                                     execCommand.execute("put");
                                     break;
                                 case "buy","b":
@@ -88,7 +99,7 @@ public class StoreInteraction {
                         console = false;
                         break;
                     default:
-                        System.out.println("Command is not supported.");
+                        System.out.println("Store: Command is not supported.");
                         break;
                 }
             }

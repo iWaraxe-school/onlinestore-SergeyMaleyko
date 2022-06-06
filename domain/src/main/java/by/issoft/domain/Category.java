@@ -7,17 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
-
-    private Integer id;
     private final CategoryType name;
-
     private final List<Product> productList = new ArrayList<>();
 
     public Category(CategoryType name) {
         this.name = name;
     }
 
-    public Integer getId() {
+    public Integer getCategoryId() {
         return name.getIndex();
     }
 
@@ -33,8 +30,6 @@ public class Category {
     public int getSizeProduct() {
         return productList.size();
     }
-
-    public Product getProductById(Integer id) { return productList.get(id); }
 
     public void setItemProduct(Product product) {
         this.productList.add(product);
@@ -63,7 +58,7 @@ public class Category {
     public String toString() {
         StringBuilder info = new StringBuilder();
         info.append(String.format("Category name: %s, ", getNameCategory()));
-        info.append(String.format("ID: %s.%n", getId()));
+        info.append(String.format("ID: %s.%n", getCategoryId()));
         info.append(String.format("Number of products: %s%n", getSizeProduct()));
         for (Product product : productList) {
             info.append(product.toString());
