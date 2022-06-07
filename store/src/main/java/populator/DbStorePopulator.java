@@ -17,8 +17,7 @@ public class DbStorePopulator implements Populator {
     @SneakyThrows
     @Override
     public void fillStore() {
-        storeHelper.fillStore("FAKER");
-        List<Category> categoryList = store.getCategoryList();
+        List<Category> categoryList = populateStoreFaker();
         List<Product> productList = new ArrayList<>();
         DbService dbService = new DbService();
         dbService.createTables();
@@ -27,15 +26,27 @@ public class DbStorePopulator implements Populator {
         dbService.disconnectDb();
     }
 
-    public void printAllProductsByCategories() {
-        storeHelper.printAllCatAndProd();
+    @Override
+    public List<Category> getAllCategories() {
+        return populateStoreFromDb();
+    }
+
+    @Override
+    public void addProductToCart() {
+        System.out.println("Not supported.");
     }
 
     @SneakyThrows
-    public void populateStoreFromDb() {
-        storeHelper.fillStore("DB");
+    public List<Category> populateStoreFromDb() {
         DbService dbService = new DbService();
-        dbService.selectAllCategories();
+        List<Category> categoryList = dbService.selectAllCategories();
         dbService.disconnectDb();
+        return categoryList;
+    }
+
+    public List<Category> populateStoreFaker() {
+        storeHelper.fillStore("FAKER");
+        List<Category> categoryList = store.getCategoryList();
+        return categoryList;
     }
 }

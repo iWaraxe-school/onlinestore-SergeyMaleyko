@@ -96,7 +96,7 @@ public class StoreHelper {
         return categoryMap;
     }
 
-    public void printAllCatAndProd() {
+    public void printAllProductsByCategories() {
         System.out.println("The list of the categories and products in the store:");
         for (Category category : store.categoryList) {
             System.out.println(category);

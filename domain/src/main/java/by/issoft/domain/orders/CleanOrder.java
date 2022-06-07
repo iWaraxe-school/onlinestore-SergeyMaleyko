@@ -19,15 +19,17 @@ public class CleanOrder implements Runnable {
     @Override
     public void run() {
         boolean runTask = true;
+        int timeoutSec = 30;
         log.info("Start clean up thread.");
         while (runTask) {
             synchronized (orderProductList) {
                 if (!orderProductList.isEmpty()) {
-                    log.info("Cleaned the shopping cart: " + orderProductList.size() + " goods."); //+ orderProductList.toString());
+                    log.info("Cleaned the shopping cart: " + orderProductList.size() + " goods." +
+                                    " Waiting " + timeoutSec + "sec...");
                     orderProductList.clear();
-                    orderProductList.wait(30_000);
+                    orderProductList.wait(timeoutSec*1_000);
                 } else {
-                    log.info("Your list of goods is empty!");
+                    log.info("Your list of goods is empty! CleanOrder is completed.");
                     runTask = false;
                 }
             }

@@ -139,7 +139,7 @@ public class DbService extends  DbConnection {
         return productList;
     }
 
-    public void selectAllCategories() throws SQLException {
+    public List<Category> selectAllCategories() throws SQLException {
         List<Category> categoryList = new ArrayList<>();
         List<Product> productList;
         String sqlCategory = "SELECT * FROM Category ORDER BY category_id ASC;";
@@ -158,5 +158,6 @@ public class DbService extends  DbConnection {
             }
         }
         System.out.println("The store data have been populated from DB.");
+        return categoryList;
     }
 }
